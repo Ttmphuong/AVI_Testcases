@@ -118,9 +118,9 @@ public class MonitorTestCases {
                     // Write the value to the destination column
                     Row destinationRow = sheet.getRow(rowIndex);
                     Cell destinationCell = destinationRow.createCell(destinationColumnIndex);
-                    if (destinationRow == null) {
-                        destinationRow = sheet.createRow(rowIndex);
-                    }
+//                    if (destinationRow == null) {
+//                        destinationRow = sheet.createRow(rowIndex);
+//                    }
                     if (typeValue.startsWith("button") || typeValue.startsWith("Button")) {
                         destinationCell.setCellValue("The " + cellValue + " should be a button");
                     }else if (typeValue.startsWith("switch button") || typeValue.startsWith("Switch button")) {
