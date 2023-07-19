@@ -3,9 +3,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 
-public class Main {
+public class MonitorTestCases {
     public  static int startRow = 2; // Row index to start reading (zero-based)
-    public  static int endRow = 10; // Row index to end reading (zero-based)
+    public  static int endRow = 56; // Row index to end reading (zero-based)
     public static void main(String[] args) throws IOException {
         String deviceName = "Mersive Solstice Pod";
 
@@ -121,19 +121,15 @@ public class Main {
                     if (destinationRow == null) {
                         destinationRow = sheet.createRow(rowIndex);
                     }
-                    else if (typeValue.startsWith("button") || typeValue.startsWith("Button")) {
+                    if (typeValue.startsWith("button") || typeValue.startsWith("Button")) {
                         destinationCell.setCellValue("The " + cellValue + " should be a button");
-                    }
-                    else if (typeValue.startsWith("switch button") || typeValue.startsWith("Switch button")) {
+                    }else if (typeValue.startsWith("switch button") || typeValue.startsWith("Switch button")) {
                         destinationCell.setCellValue("The " + cellValue + " is a switch button shown on Live Monitoring matches the " + cellValue + " shown on the device web page.");
-                    }
-                    else if (typeValue.startsWith("dropdown") || typeValue.startsWith("Dropdown")){
+                    }else if (typeValue.startsWith("dropdown") || typeValue.startsWith("Dropdown")){
                         destinationCell.setCellValue("The " + cellValue + " is a dropdown list that contains " + typeValue.substring(10));
-                    }
-                    else if (typeValue.startsWith("slider") || typeValue.startsWith("Slider")) {
+                    }else if (typeValue.startsWith("slider") || typeValue.startsWith("Slider")) {
                         destinationCell.setCellValue("The " + cellValue + " should be a slider with range is " + typeValue.substring(8));
-                    }
-                    else if (typeValue.isEmpty()){
+                    }else if (typeValue.isEmpty()){
                         destinationCell.setCellValue( "The " + cellValue +" shown on Live monitoring tab will be correct");
                     }
                 }
