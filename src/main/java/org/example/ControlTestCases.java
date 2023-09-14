@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ControlTestCases {
     public static int startRow = 1; // Row index to start reading (zero-based)
     public static int endRowControl = 114; // Row index to end reading (zero-based)
-    public static int endRowMonitor = 84; // Row index to end reading (zero-based)
+    public static int endRowMonitor = 88; // Row index to end reading (zero-based)
     public static String deviceName = "Magic Info";
 
     public static void main(String[] args) throws IOException {
@@ -122,8 +122,8 @@ public class ControlTestCases {
                     Cell testStepCell = testStepRow.createCell(testStepColumnIndex);
                     if (titleValue.contains("ON/OFF") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
-                                "1. Go to Config page\n" +
-                                "2. Go to Network\n" +
+                                "1. Go to Device page\n" +
+                                "2. Go to edit device infor\n" +
                                 "3. Switch the " + cellValue + " button to OFF \n" +
                                 "On Symphony:\n" +
                                 "4. Check the " + cellValue + " value of the device \n" +
@@ -144,8 +144,8 @@ public class ControlTestCases {
                                 "7.Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("can change") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
-                                "1. Go to Config page\n" +
-                                "2. Go to Network\n" +
+                                "1. Go to Device page\n" +
+                                "2. Go to edit device infor\n" +
                                 "3. Change value of " + cellValue + "\n" +
                                 "On Symphony:\n" +
                                 "4. Check the " + cellValue + " value of the device ");
@@ -158,8 +158,8 @@ public class ControlTestCases {
                                 "4. Check the " + cellValue + " value of the device");
                     } else if (titleValue.contains("click on") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
-                                "1. Go to Config page\n" +
-                                "2. Go to Network\n" +
+                                "1. Go to Device page\n" +
+                                "2. Go to edit device infor\n" +
                                 "3. Click on " + cellValue + " button\n" +
                                 "4. Validate the result");
                     } else if (titleValue.contains("click on") && titleValue.contains("device management")) {

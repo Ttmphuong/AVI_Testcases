@@ -5,7 +5,7 @@ import java.io.*;
 
 public class MonitorTestCases {
     public  static int startRow = 1; // Row index to start reading (zero-based)
-    public  static int endRow = 84; // Row index to end reading (zero-based)
+    public  static int endRow = 88; // Row index to end reading (zero-based)
     public static void main(String[] args) throws IOException {
         String deviceName = "Magic Info";
 
@@ -97,7 +97,7 @@ public class MonitorTestCases {
                             "3. Go to Extended properties tab of the device \n" +
                             "4. Check the " + cellValue + " value \n" +
                             "5. Open web UI of " + deviceName + " on another browser \n" +
-                            "6. Go to Licensing  tab \n" +
+                            "6. Go to Device page \n" +
                             "7.Verify the result");
                 }
             }
