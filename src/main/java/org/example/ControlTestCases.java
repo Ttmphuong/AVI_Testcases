@@ -10,18 +10,18 @@ import java.io.IOException;
 
 public class ControlTestCases {
     public static int startRow = 1; // Row index to start reading (zero-based)
-    public static int endRow = 70; // Row index to end reading (zero-based)
-    public static String deviceName = "Mersive Solstice Pod";
+    public static int endRowControl = 114; // Row index to end reading (zero-based)
+    public static int endRowMonitor = 84; // Row index to end reading (zero-based)
+    public static String deviceName = "Magic Info";
 
     public static void main(String[] args) throws IOException {
 
         String projectPath = System.getProperty("user.dir");
-        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Mersive Solstice Pod.xlsx";
+        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Magic Info.xlsx";
         FileInputStream file = new FileInputStream(importFilePath);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheetMonitor = workbook.getSheetAt(0); // Sheet index(zero-based)
         Sheet sheetControl = workbook.getSheetAt(1); // Sheet index(zero-based)
-
 
         try {
             writeTcTitle(sheetControl, sheetMonitor);
@@ -61,7 +61,7 @@ public class ControlTestCases {
         String propertyType = null;
 
         // Read data
-        for (int rowIndex = startRow; rowIndex <= endRow; rowIndex++) {
+        for (int rowIndex = startRow; rowIndex <= endRowControl; rowIndex++) {
             Row sourceRow = controlSheet.getRow(rowIndex);
             if (sourceRow != null) {
                 Cell propertyCell = sourceRow.getCell(propertyColumnIndex);
@@ -75,9 +75,6 @@ public class ControlTestCases {
                     // Write the value to the destination column
                     Row destinationRow = controlSheet.getRow(rowIndex);
                     Cell destinationCell = destinationRow.createCell(destinationColumnIndex);
-//                    System.out.println(propertyValue);
-//                    System.out.println(optionValue);
-//                    System.out.println(propertyType);
 
                     if ((optionValue.contains("device") || optionValue.contains("Device")) && (propertyType.startsWith("button") || propertyType.startsWith("Button"))) {
                         destinationCell.setCellValue("Validate the user can click on " + propertyValue + "  button for " + deviceName + "  from real device");
@@ -91,10 +88,10 @@ public class ControlTestCases {
                     else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.contains("switch button") || propertyType.contains("Switch button"))) {
                         destinationCell.setCellValue("Validate the user can turn ON/OFF " + propertyValue + " of " + deviceName + " from device management");
                     }
-                    else if ((optionValue.contains("device") || optionValue.contains("Device")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown"))) {
+                    else if ((optionValue.contains("device") || optionValue.contains("Device")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("["))) {
                         destinationCell.setCellValue("Validate the user can change " + propertyValue + " of " + deviceName + " from real device");
                     }
-                    else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown"))) {
+                    else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("["))) {
                         destinationCell.setCellValue("Validate the user can change " + propertyValue + " of " + deviceName + " from device management");
                     }
 
@@ -110,7 +107,7 @@ public class ControlTestCases {
         int testStepColumnIndex = 6; // Index of the destination column (zero-based)
 
         // Read data
-        for (int rowIndex = startRow; rowIndex <= endRow; rowIndex++) {
+        for (int rowIndex = startRow; rowIndex <= endRowControl; rowIndex++) {
             Row sourceRow = sheet.getRow(rowIndex);
             if (sourceRow != null) {
                 Cell sourceCell = sourceRow.getCell(sourceColumnIndex);
@@ -143,7 +140,7 @@ public class ControlTestCases {
                                 "4. Check the " + cellValue + " value of the device \n" +
                                 "On Symphony:\n" +
                                 "5. Switch the " + cellValue + "button to ON\n" +
-                                "6. ON the " + cellValue + "\n\n" +
+                                "6. ON the " + cellValue + "\n" +
                                 "7.Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("can change") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
@@ -180,17 +177,16 @@ public class ControlTestCases {
 
     private static void writeTestExpectedResult(Sheet controlSheet, Sheet monitorSheet) throws IOException {
 
-        int sourceColumnIndex = 2; // Index of the source column (zero-based)
-        int typeColumnIndex = 3; // Index of the source column (zero-based)
+        int propertyColumnIndex = 2; // Index of the source column (zero-based)
         int titleColumnIndex = 4; // Index of the source column (zero-based)
         int expectedResultColumnIndex = 8; // Index of the destination column (zero-based)
 
         // Read data
-        for (int rowIndex = startRow; rowIndex <= endRow; rowIndex++) {
+        for (int rowIndex = startRow; rowIndex <= endRowControl; rowIndex++) {
             Row sourceRow = controlSheet.getRow(rowIndex);
 
             if (sourceRow != null) {
-                Cell sourceCell = sourceRow.getCell(sourceColumnIndex);
+                Cell sourceCell = sourceRow.getCell(propertyColumnIndex);
                 Cell titleCell = sourceRow.getCell(titleColumnIndex);
 
                 if (sourceCell != null) {
@@ -208,10 +204,21 @@ public class ControlTestCases {
                     } else if (titleValue.contains("ON/OFF") && titleValue.contains("device management")) {
                         expectedResultCell.setCellValue("The " + cellValue + " is a switch button and must be updated on the device correctly");
                     }
-                    else if (titleValue.contains("can change") && titleValue.contains("real device")) {
+                    else if (titleValue.contains("can change") && titleValue.contains("real device") && !propertyType.startsWith("[")) {
                         expectedResultCell.setCellValue("The " + cellValue + " must be updated on the Symphony correctly");
-                    } else if (titleValue.contains("can change") && titleValue.contains("device management")) {
+                    } else if (titleValue.contains("can change") && titleValue.contains("device management") && !propertyType.startsWith("[")) {
                         expectedResultCell.setCellValue("The " + cellValue + " must be updated on the device correctly");
+                    }
+                    else if (titleValue.contains("can change") && titleValue.contains("real device") && propertyType.startsWith("[")) {
+                        System.out.println(propertyType);
+                        expectedResultCell.setCellValue("The " + cellValue + "is a number and has range is: " + propertyType.substring(1, propertyType.length()-1) + "\n" +
+                                "The " + cellValue + " must be updated on the Symphony correctly");
+                    } else if (titleValue.contains("can change") && titleValue.contains("device management") && propertyType.startsWith("[")) {
+                        System.out.println(propertyType);
+                        expectedResultCell.setCellValue("The " + cellValue + "is a number and has range is: " + propertyType.substring(1, propertyType.length()-1) + "\n" +
+                                "The " + cellValue + " must be updated on the device correctly\n" +
+                                "If inputted value < " + getTheMinRange(propertyType) + " -> auto correct to " + getTheMinRange(propertyType) +"\n" +
+                                "If inputted value > " + getTheMaxRange(propertyType) + " -> auto correct to " + getTheMaxRange(propertyType));
                     }
                     else if (titleValue.contains("click on") && titleValue.contains("real device")) {
                         expectedResultCell.setCellValue("The " + cellValue + " button works well");
@@ -224,12 +231,10 @@ public class ControlTestCases {
     }
 
     private static String getTypeFromMonitorSheet(Sheet monitorSheet, String property) {
-        int startRow = 1;
-        int endRow = 56;
         int propertyColumnIndex = 2;
         int typeColumnIndex = 3;
         String typeValue = "";
-        for (int rowIndex = startRow; rowIndex <= endRow; rowIndex++) {
+        for (int rowIndex = startRow; rowIndex <= endRowMonitor; rowIndex++) {
             Row propertyRow = monitorSheet.getRow(rowIndex);
             if (propertyRow != null) { // Add a check for null propertyRow
                 Cell cell = propertyRow.getCell(propertyColumnIndex);
@@ -258,6 +263,14 @@ public class ControlTestCases {
             }
         }
         return typeValue;
+    }
+    private static String getTheMinRange(String range) {
+        String min = range.substring(1, (range.indexOf('-')));
+        return min;
+    }
+    private static String getTheMaxRange(String range) {
+        String max = range.substring((range.indexOf('-')) + 1, range.length()-1);
+        return max;
     }
 }
 

@@ -4,13 +4,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 
 public class MonitorTestCases {
-    public  static int startRow = 2; // Row index to start reading (zero-based)
-    public  static int endRow = 56; // Row index to end reading (zero-based)
+    public  static int startRow = 1; // Row index to start reading (zero-based)
+    public  static int endRow = 84; // Row index to end reading (zero-based)
     public static void main(String[] args) throws IOException {
-        String deviceName = "Mersive Solstice Pod";
+        String deviceName = "Magic Info";
 
         String projectPath = System.getProperty("user.dir");
-        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Mersive Solstice Pod.xlsx";
+        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Magic Info.xlsx";
         FileInputStream file = new FileInputStream(importFilePath);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheetAt(0);
@@ -92,7 +92,13 @@ public class MonitorTestCases {
                         destinationRow = sheet.createRow(rowIndex);
                     }
                     Cell destinationCell = destinationRow.createCell(destinationColumnIndex);
-                    destinationCell.setCellValue( "1. Login Symphony \n2.Go to " + deviceName + " device under test \n3. Go to Extended properties tab of the device \n4. Check the " + cellValue + " value \n5. Open web UI of " + deviceName + " on another browser \n6. Go to Licensing  tab \n7.Verify the result");
+                    destinationCell.setCellValue( "1. Login Symphony \n" +
+                            "2.Go to " + deviceName + " device under test \n" +
+                            "3. Go to Extended properties tab of the device \n" +
+                            "4. Check the " + cellValue + " value \n" +
+                            "5. Open web UI of " + deviceName + " on another browser \n" +
+                            "6. Go to Licensing  tab \n" +
+                            "7.Verify the result");
                 }
             }
         }
@@ -129,7 +135,7 @@ public class MonitorTestCases {
                         destinationCell.setCellValue("The " + cellValue + " is a dropdown list that contains " + typeValue.substring(10));
                     }else if (typeValue.startsWith("slider") || typeValue.startsWith("Slider")) {
                         destinationCell.setCellValue("The " + cellValue + " should be a slider with range is " + typeValue.substring(8));
-                    }else if (typeValue.isEmpty()){
+                    }else {
                         destinationCell.setCellValue( "The " + cellValue +" shown on Live monitoring tab will be correct");
                     }
                 }
