@@ -93,12 +93,12 @@ public class MonitorTestCases {
                     }
                     Cell destinationCell = destinationRow.createCell(destinationColumnIndex);
                     destinationCell.setCellValue( "1. Login Symphony \n" +
-                            "2.Go to " + deviceName + " device under test \n" +
+                            "2. Go to " + deviceName + " device under test \n" +
                             "3. Go to Extended properties tab of the device \n" +
                             "4. Check the " + cellValue + " value \n" +
                             "5. Open web UI of " + deviceName + " on another browser \n" +
                             "6. Go to Device page \n" +
-                            "7.Verify the result");
+                            "7. Verify the result");
                 }
             }
         }

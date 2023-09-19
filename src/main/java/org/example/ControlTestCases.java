@@ -141,7 +141,7 @@ public class ControlTestCases {
                                 "On Symphony:\n" +
                                 "5. Switch the " + cellValue + "button to ON\n" +
                                 "6. ON the " + cellValue + "\n" +
-                                "7.Check the " + cellValue + "of the device");
+                                "7. Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("can change") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
                                 "1. Go to Device page\n" +
