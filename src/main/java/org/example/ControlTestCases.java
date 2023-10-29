@@ -10,14 +10,14 @@ import java.io.IOException;
 
 public class ControlTestCases {
     public static int startRow = 1; // Row index to start reading (zero-based)
-    public static int endRowControl = 114; // Row index to end reading (zero-based)
-    public static int endRowMonitor = 88; // Row index to end reading (zero-based)
-    public static String deviceName = "Magic Info";
+    public static int endRowControl = 36; // Row index to end reading (zero-based)
+    public static int endRowMonitor = 43; // Row index to end reading (zero-based)
+    public static String deviceName = "Middle Atlantic";
 
     public static void main(String[] args) throws IOException {
 
         String projectPath = System.getProperty("user.dir");
-        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Magic Info.xlsx";
+        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Middle Atlantic.xlsx";
         FileInputStream file = new FileInputStream(importFilePath);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheetMonitor = workbook.getSheetAt(0); // Sheet index(zero-based)
@@ -88,10 +88,10 @@ public class ControlTestCases {
                     else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.contains("switch button") || propertyType.contains("Switch button"))) {
                         destinationCell.setCellValue("Validate the user can turn ON/OFF " + propertyValue + " of " + deviceName + " from device management");
                     }
-                    else if ((optionValue.contains("device") || optionValue.contains("Device")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("["))) {
+                    else if ((optionValue.contains("device") || optionValue.contains("Device")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("[") || propertyType.contains("text"))) {
                         destinationCell.setCellValue("Validate the user can change " + propertyValue + " of " + deviceName + " from real device");
                     }
-                    else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("["))) {
+                    else if ((optionValue.contains("symphony") || optionValue.contains("Symphony")) && (propertyType.isEmpty() || propertyType.contains("dropdown") || propertyType.contains("Dropdown") || propertyType.contains("[") || propertyType.contains("text"))) {
                         destinationCell.setCellValue("Validate the user can change " + propertyValue + " of " + deviceName + " from device management");
                     }
 
@@ -123,14 +123,14 @@ public class ControlTestCases {
                     if (titleValue.contains("ON/OFF") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
                                 "1. Go to Device page\n" +
-                                "2. Go to edit device infor\n" +
-                                "3. Switch the " + cellValue + " button to OFF \n" +
+//                                "2. Go to edit device info\n" +
+                                "2. Switch the " + cellValue + " button to OFF \n" +
                                 "On Symphony:\n" +
-                                "4. Check the " + cellValue + " value of the device \n" +
+                                "3. Check the " + cellValue + " value of the device \n" +
                                 "On " + deviceName + " web UI: \n" +
-                                "5. Switch the " + cellValue + "button to ON\n" +
+                                "4. Switch the " + cellValue + "button to ON\n" +
                                 " On Symphony:\n" +
-                                "6. Check the " + cellValue + "of the device");
+                                "5. Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("ON/OFF") && titleValue.contains("device management")) {
                         testStepCell.setCellValue("On Symphony:\n" +
                                 "1. Go to " + deviceName + " device under test\n" +
@@ -144,11 +144,11 @@ public class ControlTestCases {
                                 "7. Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("can change") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
-                                "1. Go to Device page\n" +
-                                "2. Go to edit device infor\n" +
-                                "3. Change value of " + cellValue + "\n" +
+//                                "1. Go to Device page\n" +
+//                                "2. Go to edit device info\n" +
+                                "1. Change value of " + cellValue + "\n" +
                                 "On Symphony:\n" +
-                                "4. Check the " + cellValue + " value of the device ");
+                                "2. Check the " + cellValue + " value of the device ");
                     } else if (titleValue.contains("can change") && titleValue.contains("device management")) {
                         testStepCell.setCellValue("On Symphony:\n" +
                                 "1. Go to " + deviceName + " device under test\n" +
@@ -158,15 +158,15 @@ public class ControlTestCases {
                                 "4. Check the " + cellValue + " value of the device");
                     } else if (titleValue.contains("click on") && titleValue.contains("real device")) {
                         testStepCell.setCellValue("On " + deviceName + " web UI:\n" +
-                                "1. Go to Device page\n" +
-                                "2. Go to edit device infor\n" +
-                                "3. Click on " + cellValue + " button\n" +
-                                "4. Validate the result");
+//                                "1. Go to Device page\n" +
+//                                "2. Go to edit device info\n" +
+                                "1. Click on " + cellValue + " button\n" +
+                                "2. Validate the result");
                     } else if (titleValue.contains("click on") && titleValue.contains("device management")) {
                         testStepCell.setCellValue("On Symphony:\n" +
                                 "1. Go to " + deviceName + " device under test\n" +
                                 "2. Go to monitor tab of the device\n" +
-                                "3. Change value of " + cellValue + "\n" +
+                                "3. Click on " + cellValue + " button\n" +
                                 "4. Validate the result");
                     }
 

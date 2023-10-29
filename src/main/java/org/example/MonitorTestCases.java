@@ -5,12 +5,12 @@ import java.io.*;
 
 public class MonitorTestCases {
     public  static int startRow = 1; // Row index to start reading (zero-based)
-    public  static int endRow = 88; // Row index to end reading (zero-based)
+    public  static int endRow = 43; // Row index to end reading (zero-based)
     public static void main(String[] args) throws IOException {
-        String deviceName = "Magic Info";
+        String deviceName = "Middle Atlantic";
 
         String projectPath = System.getProperty("user.dir");
-        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Magic Info.xlsx";
+        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Middle Atlantic.xlsx";
         FileInputStream file = new FileInputStream(importFilePath);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheetAt(0);
