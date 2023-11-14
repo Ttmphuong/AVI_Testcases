@@ -10,14 +10,14 @@ import java.io.IOException;
 
 public class ControlTestCases {
     public static int startRow = 1; // Row index to start reading (zero-based)
-    public static int endRowControl = 36; // Row index to end reading (zero-based)
-    public static int endRowMonitor = 43; // Row index to end reading (zero-based)
-    public static String deviceName = "Middle Atlantic";
+    public static int endRowControl = 158; // Row index to end reading (zero-based)
+    public static int endRowMonitor = 176; // Row index to end reading (zero-based)
+    public static String deviceName = "Vaddio AV Bridge Nano";
 
     public static void main(String[] args) throws IOException {
 
         String projectPath = System.getProperty("user.dir");
-        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Middle Atlantic.xlsx";
+        String importFilePath = projectPath + File.separator + "importFile" + File.separator + "Vaddio AV Bridge Nano.xlsx";
         FileInputStream file = new FileInputStream(importFilePath);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheetMonitor = workbook.getSheetAt(0); // Sheet index(zero-based)
@@ -128,7 +128,7 @@ public class ControlTestCases {
                                 "On Symphony:\n" +
                                 "3. Check the " + cellValue + " value of the device \n" +
                                 "On " + deviceName + " web UI: \n" +
-                                "4. Switch the " + cellValue + "button to ON\n" +
+                                "4. Switch the " + cellValue + " button to ON\n" +
                                 " On Symphony:\n" +
                                 "5. Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("ON/OFF") && titleValue.contains("device management")) {
@@ -139,7 +139,7 @@ public class ControlTestCases {
                                 "On " + deviceName + " web UI:\n" +
                                 "4. Check the " + cellValue + " value of the device \n" +
                                 "On Symphony:\n" +
-                                "5. Switch the " + cellValue + "button to ON\n" +
+                                "5. Switch the " + cellValue + " button to ON\n" +
                                 "6. ON the " + cellValue + "\n" +
                                 "7. Check the " + cellValue + "of the device");
                     } else if (titleValue.contains("can change") && titleValue.contains("real device")) {
